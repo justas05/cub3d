@@ -15,7 +15,7 @@
 
 enum		e_errors
 {
-	E_ARGS,
+	E_ARGS = 1,
 	E_FILE,
 	E_CFG,
 	E_CFG_RESOLUTION,

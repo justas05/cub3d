@@ -38,7 +38,7 @@ char				*ft_itoa(int num);
 void				*ft_calloc(size_t nmemb, size_t size);
 size_t				ft_nbrlen_base(double n, unsigned int base);
 size_t				ft_nbrlen_base_pow(double n, unsigned int base,
-									double *maxpow);
+						double *maxpow);
 
 void				ft_putchar_fd(char c, int fd);
 void				ft_putstr_fd(char *s, int fd);
@@ -76,7 +76,7 @@ void				*ft_memccpy(void *dest, const void *src, int c, size_t n);
 void				*ft_memset(void *str, int c, size_t n);
 void				*ft_memmove(void *dest, const void *src, size_t num);
 
-typedef	struct		s_list
+typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
@@ -90,11 +90,11 @@ t_list				*ft_lstlast(t_list *begin_list);
 
 int					ft_lstsize(t_list *begin_list);
 void				ft_lstclear(t_list **begin_list,
-									void (*free_fct)(void *));
+						void (*free_fct)(void *));
 
 void				ft_lstiter(t_list *begin_list, void (*f)(void *));
 void				ft_lstdelone(t_list *item, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
-								void (*del)(void *));
+						void (*del)(void *));
 
 #endif

@@ -34,11 +34,11 @@ char	*atoi_s(char *line, int *num)
 	return (line);
 }
 
-int		is_valid_rgb(t_rgb *rgb)
+int	is_valid_rgb(t_rgb *rgb)
 {
 	if (!rgb)
 		return (0);
-	return (0 <= rgb->r && rgb->r <= 255 &&
-			0 <= rgb->g && rgb->g <= 255 &&
-			0 <= rgb->b && rgb->b <= 255);
+	return (0 <= rgb->r && rgb->r <= 255
+		&& 0 <= rgb->g && rgb->g <= 255
+		&& 0 <= rgb->b && rgb->b <= 255);
 }

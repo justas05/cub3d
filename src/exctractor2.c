@@ -16,24 +16,24 @@
 
 int	extract_north_texture(char *line, t_config *config)
 {
-	return (extract_texture(config, skip_spaces(line), &config->no) ?
-		E_CFG_NO : 0);
+	return ((extract_texture(config, skip_spaces(line), &config->no) != 0)
+		* E_CFG_NO);
 }
 
 int	extract_south_texture(char *line, t_config *config)
 {
-	return (extract_texture(config, skip_spaces(line), &config->so) ?
-		E_CFG_SO : 0);
+	return ((extract_texture(config, skip_spaces(line), &config->so) != 0)
+		* E_CFG_SO);
 }
 
 int	extract_west_texture(char *line, t_config *config)
 {
-	return (extract_texture(config, skip_spaces(line), &config->we) ?
-		E_CFG_WE : 0);
+	return ((extract_texture(config, skip_spaces(line), &config->we) != 0)
+		* E_CFG_WE);
 }
 
 int	extract_east_texture(char *line, t_config *config)
 {
-	return (extract_texture(config, skip_spaces(line), &config->ea) ?
-		E_CFG_EA : 0);
+	return ((extract_texture(config, skip_spaces(line), &config->ea) != 0)
+		* E_CFG_EA);
 }

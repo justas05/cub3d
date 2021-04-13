@@ -12,9 +12,9 @@
 
 #include <stdlib.h>
 
-size_t		ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
-	int res;
+	int	res;
 
 	res = 0;
 	while (*str++)
@@ -22,20 +22,22 @@ size_t		ft_strlen(const char *str)
 	return (res);
 }
 
-void		*ft_memchr(const void *s, int c, size_t n)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	unsigned char *ptr;
+	unsigned char	*ptr;
 
-	ptr = (unsigned char*)s;
+	ptr = (unsigned char *)s;
 	while (n--)
+	{
 		if (*ptr != (unsigned char)c)
 			++ptr;
 		else
 			return (ptr);
+	}
 	return (NULL);
 }
 
-void		*ft_memmove(void *dest, const void *src, size_t num)
+void	*ft_memmove(void *dest, const void *src, size_t num)
 {
 	unsigned char	*from;
 	unsigned char	*to;
@@ -63,7 +65,7 @@ void		*ft_memmove(void *dest, const void *src, size_t num)
 	return (dest);
 }
 
-void		*ft_realloc(void *ptr, size_t old_size, size_t size)
+void	*ft_realloc(void *ptr, size_t old_size, size_t size)
 {
 	void	*res;
 
@@ -86,12 +88,12 @@ void		*ft_realloc(void *ptr, size_t old_size, size_t size)
 	return (res);
 }
 
-void		*ft_flush(char **line, char *buf, size_t len)
+void	*ft_flush(char **line, char *buf, size_t len)
 {
 	size_t	line_len;
 
-	line_len = (*line) ? ft_strlen(*line) : 0;
-	*line = (char*)ft_realloc(*line, line_len + 1, line_len + len + 1);
+	line_len = (*line != 0) * ft_strlen(*line);
+	*line = (char *)ft_realloc(*line, line_len + 1, line_len + len + 1);
 	if (*line)
 	{
 		ft_memmove(*line + line_len, buf, len);

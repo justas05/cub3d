@@ -29,21 +29,21 @@ static int	prepare(int fd, char **line, int *need_line)
 static int	check_long_condition(char **p_endl, t_line_buf *line_buf)
 {
 	return ((*p_endl = ft_memchr(line_buf->buf + line_buf->start, '\n',
-								line_buf->readed - line_buf->start)) &&
-			line_buf->buf + line_buf->readed >= *p_endl &&
-			line_buf->buf + line_buf->start <= *p_endl);
+				line_buf->readed - line_buf->start))
+		&& line_buf->buf + line_buf->readed >= *p_endl
+		&& line_buf->buf + line_buf->start <= *p_endl);
 }
 
 static int	ret_line(char **line, char *p_endl, t_line_buf *line_buf)
 {
 	if (!ft_flush(line, line_buf->buf + line_buf->start,
-				p_endl - line_buf->buf - line_buf->start))
+			p_endl - line_buf->buf - line_buf->start))
 		return (-1);
 	line_buf->start = (p_endl - line_buf->buf + 1) % BUFFER_SIZE;
 	return (1);
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static t_line_buf	fds;
 	char				*p_endl;
@@ -52,6 +52,7 @@ int			get_next_line(int fd, char **line)
 	if (prepare(fd, line, &need_line))
 		return (-1);
 	while (1)
+	{
 		if (!fds.start && need_line)
 		{
 			fds.readed = read(fd, fds.buf, BUFFER_SIZE);
@@ -63,10 +64,10 @@ int			get_next_line(int fd, char **line)
 			return (ret_line(line, p_endl, &fds));
 		else
 		{
-			if (!ft_flush(line, fds.buf + fds.start,
-						fds.readed - fds.start))
+			if (!ft_flush(line, fds.buf + fds.start, fds.readed - fds.start))
 				return (-1);
 			fds.start = 0;
 			need_line = 1;
 		}
+	}
 }

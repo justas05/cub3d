@@ -13,7 +13,7 @@
 #include <errors.h>
 #include <stdio.h>
 
-const char	*const		g_errors[] = {
+const char *const		g_errors[] = {
 	"incorrect arguments",
 	"something went wrong with file",
 	"incorrect config file",
@@ -30,7 +30,7 @@ const char	*const		g_errors[] = {
 	"unknown error"
 };
 
-void					print_error(int err)
+void	print_error(int err)
 {
 	if (!(0 <= err && err < E_UNKNOWN))
 		err = E_UNKNOWN;
