@@ -30,14 +30,3 @@ int	check_args(int argc, char **argv, t_config *config)
 	config->config_filename = ft_strdup(argv[1]);
 	return (0);
 }
-
-int	check_config(t_config *config)
-{
-	return (0);
-}
-
-int	check_map(t_map *map)
-{
-	(void)map;
-	return (0);
-}

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extractor1.c                                       :+:      :+:    :+:   */
+/*   exctractor1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2020/11/22 21:08:28 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/20 13:50:10 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,36 @@
 #include <unistd.h>
 #include <mlx.h>
 
-int	extract_texture(t_config *config, char *filename, t_texture *texture)
+int	extract_texture(t_config *config, char *filename, t_image *texture)
 {
-	int	w;
-	int	h;
-	int	t;
-
 	texture->addr = mlx_xpm_file_to_image(config->handle.mlx.ptr,
-			filename, &w, &h);
-	if (texture->addr == NULL || w != IMG_WIDTH || h != IMG_HEIGHT)
+			filename, &texture->width, &texture->height);
+	if (texture->addr == NULL || texture->width != IMG_WIDTH
+		|| texture->height != IMG_HEIGHT)
 		return (-1);
 	texture->data = (unsigned int *)mlx_get_data_addr(texture->addr,
-			&w, &h, &t);
+			&texture->bits_per_pixel, &texture->size_line, &texture->endian);
 	return (0);
 }
 
 int	extract_resolution(char *line, t_config *config)
 {
-	line = atoi_s(skip_spaces(line), &config->handle.window.size.x);
-	line = atoi_s(skip_spaces(line), &config->handle.window.size.y);
+	int	width;
+	int	height;
+
+	line = atoi_s(skip_spaces(line), &width);
+	config->handle.window.size.x = width;
+	line = atoi_s(skip_spaces(line), &height);
+	config->handle.window.size.y = height;
+	mlx_get_screen_size(config->handle.mlx.ptr, &width, &height);
+	if (config->handle.window.size.x > width
+		|| config->handle.window.size.x <= 0)
+		config->handle.window.size.x = width;
+	if (config->handle.window.size.y > height
+		|| config->handle.window.size.y <= 0)
+		config->handle.window.size.y = height;
+	config->screen.width = config->handle.window.size.x;
+	config->screen.height = config->handle.window.size.y;
 	return ((*skip_spaces(line) != '\0') * E_CFG_RESOLUTION);
 }
 

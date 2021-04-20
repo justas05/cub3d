@@ -21,16 +21,16 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-int					get_next_line(int fd, char **line);
+int		get_next_line(int fd, char **line);
 
-void				*ft_realloc(void *ptr, size_t old_size, size_t size);
-void				*ft_flush(char **line, char *buf, size_t len);
+void	*ft_realloc(void *ptr, size_t old_size, size_t size);
+void	*ft_flush(char **line, char *buf, size_t len);
 
-typedef struct		s_line_buf
+typedef struct s_line_buf
 {
-	char			buf[BUFFER_SIZE];
-	size_t			start;
-	ssize_t			readed;
-}					t_line_buf;
+	char	buf[BUFFER_SIZE];
+	size_t	start;
+	ssize_t	readed;
+}			t_line_buf;
 
 #endif

@@ -6,14 +6,14 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2020/11/22 21:08:28 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/20 11:56:21 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <errors.h>
 #include <stdio.h>
 
-const char *const		g_errors[] = {
+const char *const	g_errors[] = {
 	"incorrect arguments",
 	"something went wrong with file",
 	"incorrect config file",
@@ -27,6 +27,10 @@ const char *const		g_errors[] = {
 	"incorrect ceiling color",
 	"incorrect map",
 	"incorrect extension",
+	"cannot create window",
+	"cannot create image",
+	"cannot open file",
+	"cannot write to file",
 	"unknown error"
 };
 

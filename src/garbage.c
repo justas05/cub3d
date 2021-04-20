@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/08 21:08:28 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/20 13:12:16 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	free_config(t_config *config)
 		return ;
 	if (config->config_filename)
 		free(config->config_filename);
+	if (config->screen.addr)
+		mlx_destroy_image(config->handle.mlx.ptr, config->screen.addr);
 	destroy_textures(config);
 	free_map(config);
 	if (config->handle.mlx.ptr)

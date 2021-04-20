@@ -47,7 +47,7 @@ dirs:
 minilibx:
 	${MAKE} minilibx
 
-re: fclean lib
+re: fclean ${NAME}
 
 clean:
 	${RM} ${OBJS}

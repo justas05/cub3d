@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2020/11/22 21:08:28 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/20 10:27:32 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,34 @@ char	*atoi_s(char *line, int *num)
 	return (line);
 }
 
-int	is_valid_rgb(t_rgb *rgb)
+int	is_valid_rgb(t_trgb *trgb)
 {
-	if (!rgb)
+	if (!trgb)
 		return (0);
-	return (0 <= rgb->r && rgb->r <= 255
-		&& 0 <= rgb->g && rgb->g <= 255
-		&& 0 <= rgb->b && rgb->b <= 255);
+	return (0 <= trgb->t && trgb->t <= 255
+		&& 0 <= trgb->r && trgb->r <= 255
+		&& 0 <= trgb->g && trgb->g <= 255
+		&& 0 <= trgb->b && trgb->b <= 255);
+}
+
+void	iton(char *buf, int num)
+{
+	if (buf)
+	{
+		buf[0] = (num >> 24) & 0xFF;
+		buf[1] = (num >> 16) & 0xFF;
+		buf[2] = (num >> 8) & 0xFF;
+		buf[3] = num & 0xFF;
+	}
+}
+
+void	itoc(char *buf, int num)
+{
+	if (buf)
+	{
+		buf[3] = (num >> 24) & 0xFF;
+		buf[2] = (num >> 16) & 0xFF;
+		buf[1] = (num >> 8) & 0xFF;
+		buf[0] = num & 0xFF;
+	}
 }

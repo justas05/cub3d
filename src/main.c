@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2020/11/22 21:08:28 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/20 12:56:23 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ int	main(int argc, char **argv)
 	err = 0;
 	init_config(&config);
 	config.handle.mlx.ptr = mlx_init();
-	if (check_args(argc, argv, &config) < 0
-		|| parse_config(&config) < 0
-		|| init(&config) < 0)
+	if (!config.handle.mlx.ptr
+		|| check_args(argc, argv, &config)
+		|| parse_config(&config)
+		|| init(&config))
 	{
 		err = -1;
 	}

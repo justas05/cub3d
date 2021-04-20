@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2020/11/22 21:08:28 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/20 11:56:01 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 enum		e_errors
 {
-	E_ARGS = 1,
+	E_ARGS,
 	E_FILE,
 	E_CFG,
 	E_CFG_RESOLUTION,
@@ -28,6 +28,10 @@ enum		e_errors
 	E_CFG_C,
 	E_MAP,
 	E_EXT,
+	E_WND,
+	E_IMAGE,
+	E_OPEN_FILE,
+	E_FILE_WRITE,
 	E_UNKNOWN
 };
 
