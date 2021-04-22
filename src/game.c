@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/20 13:52:40 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/20 14:07:05 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	init(t_config *config)
 	if (config->save)
 		return (make_bmp(config));
 	config->handle.window.ptr = mlx_new_window(config->handle.mlx.ptr,
-		config->handle.window.size.x, config->handle.window.size.y, "cub3d");
+		config->handle.window.size.x, config->handle.window.size.y, WINDOW_TITLE);
 	if (!config->handle.window.ptr)
 		return (E_WND);
 	mlx_key_hook(config->handle.window.ptr, key_handler, config);
-	mlx_hook(config->handle.window.ptr, 33, 1, close_handler, config);
+	mlx_hook(config->handle.window.ptr, CROSS_BUTTON, 1, close_handler, config);
 	mlx_loop_hook(config->handle.mlx.ptr, game, config);
 	mlx_loop(config->handle.mlx.ptr);
 	return (0);

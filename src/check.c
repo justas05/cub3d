@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2020/11/22 21:08:28 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/22 10:45:42 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,63 @@ int	check_args(int argc, char **argv, t_config *config)
 	}
 	config->save = (argc == 3);
 	config->config_filename = ft_strdup(argv[1]);
+	return (0);
+}
+
+static int	is_player(char c)
+{
+	return (c == N_SOUTH || c == N_EAST || c == N_WEST || c == N_NORTH);
+}
+
+static int	validate_field(t_config *config, ssize_t i, ssize_t j)
+{
+	if (((config->map.rows + i)->cols[j] != N_WALL
+			&& (config->map.rows + i)->cols[j] != N_SPACE
+			&& (i == (ssize_t)config->map.row_count - 1
+				|| j == (ssize_t)(config->map.rows + i)->col_count - 1
+				|| i == 0 || j == 0
+				|| (config->map.rows + i)->cols[j + 1] == N_SPACE
+				|| (config->map.rows + i)->cols[j - 1] == N_SPACE
+				|| (config->map.rows + i + 1)->cols[j] == N_SPACE
+				|| (config->map.rows + i - 1)->cols[j] == N_SPACE))
+		|| (is_player((config->map.rows + i)->cols[j])
+			&& config->player.pos.x > 0 && config->player.pos.y > 0))
+			return (E_MAP);
+	return (0);
+}
+
+static void	set_player(t_config *config, ssize_t i, ssize_t j, char c)
+{
+	config->player.pos.x = (double)i + 0.5;
+	config->player.pos.y = (double)j + 0.5;
+	if (c == N_SOUTH)
+		config->player.dir = (t_point_d){0, -1};
+	else if (c == N_EAST)
+		config->player.dir = (t_point_d){1, 0};
+	else if (c == N_WEST)
+		config->player.dir = (t_point_d){-1, 0};
+	else if (c == N_NORTH)
+		config->player.dir = (t_point_d){0, 1};
+}
+
+int	check_map(t_config *config)
+{
+	ssize_t	i;
+	ssize_t	j;
+
+	i = 0;
+	while (i < (ssize_t)config->map.row_count)
+	{
+		j = 0;
+		while (j < (ssize_t)(config->map.rows + i)->col_count)
+		{
+			if (validate_field(config, i, j))
+				return (E_MAP);
+			else if (is_player((config->map.rows + i)->cols[j]))
+				set_player(config, i, j, (config->map.rows + i)->cols[j]);
+			++j;
+		}
+		++i;
+	}
 	return (0);
 }

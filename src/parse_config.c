@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/20 13:52:25 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/20 13:55:35 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ int	parse_config(t_config *config)
 
 void	init_config(t_config *config)
 {
-	if (config)
-		ft_bzero(config, sizeof(t_config));
+	if (!config)
+		return ;
+	ft_bzero(config, sizeof(t_config));
+	config->player.speed = 0.1;
+	config->angle = 60;
 }

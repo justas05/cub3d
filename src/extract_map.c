@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/20 11:28:45 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/22 10:46:04 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,28 +43,54 @@ static int	extract_map_line(t_config *config, char *line,
 		* E_MAP);
 }
 
-static int	map_to_num_array(t_config *config)
+static char	get_num_for_char(char c)
 {
-	return (0);
+	char	code;
+
+	code = N_SPACE;
+	if (c == C_NORTH)
+		code = N_NORTH;
+	else if (c == C_EAST)
+		code = N_EAST;
+	else if (c == C_SOUTH)
+		code = N_SOUTH;
+	else if (c == C_WEST)
+		code = N_WEST;
+	else if (c == C_SPRITE)
+		code = N_SPRITE;
+	else if (c == C_WALL)
+		code = N_WALL;
+	else if (c == C_EMPTY)
+		code = N_EMPTY;
+	else if (c != C_SPACE)
+		code = N_ERR;
+	return (code);
 }
 
-static int	check_map(t_config *config)
+int	map_to_num_array(t_config *config, size_t len)
 {
-	t_map_row	*r;
-	size_t		i;
-	size_t		j;
+	char	*new_row;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	while (i < config->map.row_count)
 	{
-		r = config->map.rows + i;
 		j = 0;
-		while (j < r->col_count)
+		new_row = malloc(len * sizeof(char));
+		if (!new_row)
+			return (E_MAP);
+		while (j < (config->map.rows + i)->col_count)
 		{
-			printf("%c", r->cols[j]);
-			++j;
+			new_row[j] = get_num_for_char((config->map.rows + i)->cols[j]);
+			if (new_row[j++] == N_ERR)
+				return (E_MAP);
 		}
-		printf("\n");
+		while (j < len)
+			new_row[j++] = -1;
+		free((config->map.rows + i)->cols);
+		(config->map.rows + i)->col_count = len;
+		(config->map.rows + i)->cols = new_row;
 		++i;
 	}
 	return (0);
@@ -85,5 +111,7 @@ int	extract_map(int fd, char *line, t_config *config)
 		ret = get_next_line(fd, &line);
 	}
 	free(line);
-	return ((config->map.row_count <= 2 || check_map(config)) * E_MAP);
+	return ((config->map.row_count <= 2
+			|| map_to_num_array(config, max_len_line)
+			|| check_map(config)) * E_MAP);
 }

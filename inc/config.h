@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/20 13:20:39 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/21 12:28:46 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@
 # include <mlx.h>
 # include <mlx_int.h>
 
+# define WINDOW_TITLE			"cub3d"
 # define SCREENSHORT_FILENAME	"scr.bmp"
 # define S_EXT					".cub"
 # define IMG_WIDTH				64
 # define IMG_HEIGHT				64
+# define CROSS_BUTTON			33
 
 enum	e_keys
 {
@@ -46,6 +48,19 @@ enum	e_chars
 	C_SOUTH = 'S',
 	C_WEST = 'W',
 	C_EAST = 'E'
+};
+
+enum	n_chars
+{
+	N_ERR = -2,
+	N_SPACE,
+	N_EMPTY,
+	N_WALL,
+	N_SPRITE,
+	N_NORTH,
+	N_SOUTH,
+	N_WEST,
+	N_EAST,
 };
 
 typedef struct s_point_d
@@ -96,7 +111,6 @@ typedef struct s_map
 {
 	size_t		row_count;
 	t_map_row	*rows;
-	char		sprite;
 }				t_map;
 
 typedef struct s_image
@@ -152,6 +166,7 @@ int		extract_south_texture(char *line, t_config *config);
 int		extract_west_texture(char *line, t_config *config);
 int		extract_east_texture(char *line, t_config *config);
 int		extract_map(int fd, char *line, t_config *config);
+int		check_map(t_config *config);
 int		key_handler(int k, void *params);
 int		close_handler(t_config *config, int arg);
 int		game(t_config *config);
