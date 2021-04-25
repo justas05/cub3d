@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/20 10:27:32 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/25 00:29:35 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,18 @@ void	iton(char *buf, int num)
 		buf[2] = (num >> 8) & 0xFF;
 		buf[3] = num & 0xFF;
 	}
+}
+
+void	mlx_pixel_put_local(t_config *config, int w, int h, t_trgb color)
+{
+	char	*dst;
+	int		c;
+
+	c = (color.t << 24) | (color.r << 16) | (color.g << 8) | (color.b);
+	dst = config->screen.data
+		+ (h * config->screen.size_line
+		+ w * (config->screen.bits_per_pixel / 8));
+	*(unsigned int *)dst = c;
 }
 
 void	itoc(char *buf, int num)

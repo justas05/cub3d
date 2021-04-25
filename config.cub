@@ -1,4 +1,4 @@
-R 800 400
+R 1800 4100
 NO /home/makar/projects/school42/cub3d/rcs/textures/floor.xpm
 SO /home/makar/projects/school42/cub3d/rcs/textures/blue.xpm
 WE /home/makar/projects/school42/cub3d/rcs/textures/chest.xpm
@@ -6,8 +6,9 @@ EA /home/makar/projects/school42/cub3d/rcs/textures/door.xpm
 S /home/makar/projects/school42/cub3d/rcs/textures/barrel.xpm
 F 220,100,0
 C 225,30,0
-1 1 1 1 1 1
-1 2 0 0 2 1
-1 0 0 0 0 1
-1 0 0 0 N 1
-1 1 1 1 1 1
+
+111111
+120021
+100001
+1000N1
+111111

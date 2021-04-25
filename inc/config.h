@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/21 12:28:46 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/25 00:08:16 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ enum	e_keys
 	K_RIGHT = 65363
 };
 
-enum	e_chars
+enum	e_char_codes
 {
 	C_SPACE = ' ',
 	C_EMPTY = '0',
@@ -50,7 +50,7 @@ enum	e_chars
 	C_EAST = 'E'
 };
 
-enum	n_chars
+enum	e_chars
 {
 	N_ERR = -2,
 	N_SPACE,
@@ -75,7 +75,6 @@ typedef struct s_point_i
 	int	y;
 }		t_point_i;
 
-
 typedef struct s_mlx
 {
 	void	*ptr;
@@ -95,7 +94,7 @@ typedef struct s_handle
 
 typedef struct s_rgb
 {
-	int t;
+	int	t;
 	int	r;
 	int	g;
 	int	b;
@@ -135,6 +134,7 @@ typedef struct s_config
 {
 	char		*config_filename;
 	t_player	player;
+	t_point_d	plane;
 	t_image		no;
 	t_image		so;
 	t_image		we;
@@ -150,7 +150,7 @@ typedef struct s_config
 }				t_config;
 
 typedef int (*const	t_extract)(char *, t_config *);
-typedef int (		*t_action)(t_config *, int);
+typedef int (*		t_action)(t_config *, int);
 
 int		parse_config(t_config *config);
 void	init_config(t_config *config);
@@ -171,5 +171,6 @@ int		key_handler(int k, void *params);
 int		close_handler(t_config *config, int arg);
 int		game(t_config *config);
 int		make_bmp(t_config *config);
+void	mlx_pixel_put_local(t_config *config, int w, int h, t_trgb color);
 
 #endif

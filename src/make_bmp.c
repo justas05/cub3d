@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/22 10:43:55 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/24 20:22:15 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static int	put_image_to_file(t_config *config, int fd)
 		j = 0;
 		while (j < config->screen.width)
 		{
-			// clr = *(unsigned int*)(config->screen.data + i);
-			clr = *(unsigned int*)(config->screen.data + (i * config->screen.size_line +
-						j * (config->screen.bits_per_pixel / 8)));
-			if (write(fd, &clr, sizeof(clr)) < (ssize_t)sizeof(clr))
+			clr = *(unsigned int *)(config->screen.data
+					+ (i * config->screen.size_line
+						+ j * (config->screen.bits_per_pixel / 8)));
+			if (write(fd, &clr, sizeof(clr)) < (ssize_t) sizeof(clr))
 				return (E_FILE_WRITE);
 			++j;
 		}
@@ -67,7 +67,7 @@ int	make_bmp(t_config *config)
 
 	err = 0;
 	fd = open(SCREENSHORT_FILENAME, O_CREAT | O_WRONLY | O_TRUNC,
-		S_IRWXU | S_IRWXG | S_IRWXO);
+			S_IRWXU | S_IRWXG | S_IRWXO);
 	if (fd < 0)
 		return (E_OPEN_FILE);
 	if (put_header(config, fd) || put_image_to_file(config, fd))

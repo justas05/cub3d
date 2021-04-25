@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/20 14:07:05 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/24 21:01:59 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	init(t_config *config)
 int	game(t_config *config)
 {
 	//move(config);
-	//main_screen(config);
+	main_screen(config);
 	//draw_sprites(config);
 	if (config->handle.window.ptr && config->screen.addr)
 		mlx_put_image_to_window(config->handle.mlx.ptr,

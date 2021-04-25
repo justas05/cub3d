@@ -6,9 +6,11 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/20 13:55:35 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/24 19:54:08 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <math.h>
 
 #include <errors.h>
 #include <config.h>
@@ -92,5 +94,5 @@ void	init_config(t_config *config)
 		return ;
 	ft_bzero(config, sizeof(t_config));
 	config->player.speed = 0.1;
-	config->angle = 60;
+	config->angle = 5 * M_PI / 180;
 }
