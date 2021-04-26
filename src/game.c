@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/24 21:01:59 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/25 10:49:34 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,17 @@ int	init(t_config *config)
 	if (!config)
 		return (E_CFG);
 	config->screen.addr = mlx_new_image(config->handle.mlx.ptr,
-		config->screen.width, config->screen.height);
+			config->screen.width, config->screen.height);
 	if (!config->screen.addr)
 		return (E_IMAGE);
 	config->screen.data = mlx_get_data_addr(config->screen.addr,
-		&config->screen.bits_per_pixel, &config->screen.size_line,
-		&config->screen.endian);
+			&config->screen.bits_per_pixel, &config->screen.size_line,
+			&config->screen.endian);
 	if (config->save)
 		return (make_bmp(config));
 	config->handle.window.ptr = mlx_new_window(config->handle.mlx.ptr,
-		config->handle.window.size.x, config->handle.window.size.y, WINDOW_TITLE);
+			config->handle.window.size.x, config->handle.window.size.y,
+			WINDOW_TITLE);
 	if (!config->handle.window.ptr)
 		return (E_WND);
 	mlx_key_hook(config->handle.window.ptr, key_handler, config);
@@ -37,11 +38,20 @@ int	init(t_config *config)
 	return (0);
 }
 
+/*
+** move(config);
+** draw_sprites(config);
+*/
+
+int	make_image(t_config *config)
+{
+	main_screen(config);
+	return (0);
+}
+
 int	game(t_config *config)
 {
-	//move(config);
-	main_screen(config);
-	//draw_sprites(config);
+	make_image(config);
 	if (config->handle.window.ptr && config->screen.addr)
 		mlx_put_image_to_window(config->handle.mlx.ptr,
 			config->handle.window.ptr, config->screen.addr, 0, 0);

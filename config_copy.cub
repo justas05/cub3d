@@ -6,8 +6,8 @@ WE /home/makar/projects/school42/cub3d/rcs/textures/chest.xpm
 EA /home/makar/projects/school42/cub3d/rcs/textures/door.xpm
 S /home/makar/projects/school42/cub3d/rcs/textures/barrel.xpm
 
-F 220,100,0
-C 225,30,0
+F 79,79,79
+C 83,138,207
 
 
         1111111111111111111111111

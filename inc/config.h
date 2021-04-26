@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/25 00:08:16 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/25 10:50:31 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,7 +170,8 @@ int		check_map(t_config *config);
 int		key_handler(int k, void *params);
 int		close_handler(t_config *config, int arg);
 int		game(t_config *config);
+void	main_screen(t_config *config);
+int		make_image(t_config *config);
 int		make_bmp(t_config *config);
-void	mlx_pixel_put_local(t_config *config, int w, int h, t_trgb color);
 
 #endif

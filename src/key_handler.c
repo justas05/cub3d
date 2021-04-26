@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/24 20:54:06 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/25 10:53:16 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 int	close_handler(t_config *config, int arg)
 {
+	(void)arg;
 	free_config(config);
 	exit(0);
 }
