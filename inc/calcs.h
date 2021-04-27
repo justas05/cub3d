@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   calcs.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/27 10:55:32 by hbooke           ###   ########.fr       */
+/*   Created: 2021/04/26 23:18:03 by hbooke            #+#    #+#             */
+/*   Updated: 2021/04/27 10:45:36 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef CALCS_H
+# define CALCS_H
 
 # include <config.h>
 
-char	*skip_spaces(char *line);
-char	*atoi_s(char *line, int *num);
-int		is_valid_rgb(t_trgb *rgb);
-int		t_trgb_to_int(t_trgb num);
-void	mlx_pixel_put_local(t_config *config, int w, int h, int color);
+void	set_delta_distance(t_config *config);
+void	set_vars(t_config *config);
+int		set_side_distance(t_config *config);
+void	set_wall_dist(t_config *config);
 
 #endif

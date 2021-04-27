@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/25 10:47:56 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/27 10:55:21 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,17 @@ int	is_valid_rgb(t_trgb *trgb)
 		&& 0 <= trgb->b && trgb->b <= 255);
 }
 
-void	mlx_pixel_put_local(t_config *config, int w, int h, t_trgb color)
+void	mlx_pixel_put_local(t_config *config, int w, int h, int color)
 {
 	char	*dst;
-	int		c;
 
-	c = (color.t << 24) | (color.r << 16) | (color.g << 8) | (color.b);
 	dst = config->screen.data
 		+ (h * config->screen.size_line
 			+ w * (config->screen.bits_per_pixel / 8));
-	*(unsigned int *)dst = c;
+	*(unsigned int *)dst = color;
 }
 
-void	itoc(char *buf, int num)
+int	t_trgb_to_int(t_trgb num)
 {
-	if (buf)
-	{
-		buf[3] = (num >> 24) & 0xFF;
-		buf[2] = (num >> 16) & 0xFF;
-		buf[1] = (num >> 8) & 0xFF;
-		buf[0] = num & 0xFF;
-	}
+	return ((num.t << 24) | (num.r << 16) | (num.g << 8) | (num.b));
 }

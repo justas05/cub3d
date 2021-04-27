@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/25 10:53:16 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/26 23:38:51 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static int	sideway_handler(t_config *config, int arg)
 	double		k;
 
 	k = arg * config->player.speed
-		/ hypot(config->plane.x, config->plane.y);
-	pos = (t_point_d){config->player.pos.x + k * config->plane.x,
-		config->player.pos.y + k * config->plane.y};
+		/ hypot(config->draw.plane.x, config->draw.plane.y);
+	pos = (t_point_d){config->player.pos.x + k * config->draw.plane.x,
+		config->player.pos.y + k * config->draw.plane.y};
 	if (config->map.rows[(int)(config->map.row_count - 1 - pos.y)]
 		.cols[(int)pos.x] != 1 && config->map.rows[(int)(config->map.row_count
 		- 1 - pos.y)].cols[(int)pos.x] != 2)
@@ -63,10 +63,10 @@ static int	rotate_handler(t_config *config, int arg)
 		- config->player.dir.y * sin(arg * config->angle);
 	config->player.dir.y = config->player.dir.y * cos(arg * config->angle)
 		+ x * sin(arg * config->angle);
-	x = config->plane.x;
-	config->plane.x = x * cos(arg * config->angle)
-		- config->plane.y * sin(arg * config->angle);
-	config->plane.y = config->plane.y * cos(arg * config->angle)
+	x = config->draw.plane.x;
+	config->draw.plane.x = x * cos(arg * config->angle)
+		- config->draw.plane.y * sin(arg * config->angle);
+	config->draw.plane.y = config->draw.plane.y * cos(arg * config->angle)
 		+ x * sin(arg * config->angle);
 	return (0);
 }

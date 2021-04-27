@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/24 20:48:19 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/26 23:39:06 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ static void	set_player(t_config *config, ssize_t i, ssize_t j, char c)
 		config->player.dir = (t_point_d){-1, 0};
 	else if (c == N_NORTH)
 		config->player.dir = (t_point_d){0, 1};
-	config->plane.x = sqrt(2.0 / 3.0) * config->player.dir.y;
-	config->plane.y = -sqrt(2.0 / 3.0) * config->player.dir.x;
+	config->draw.plane.x = sqrt(2.0 / 3.0) * config->player.dir.y;
+	config->draw.plane.y = -sqrt(2.0 / 3.0) * config->player.dir.x;
 }
 
 int	check_map(t_config *config)

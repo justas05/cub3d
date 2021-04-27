@@ -6,155 +6,91 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 20:59:43 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/26 15:16:46 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/27 12:00:51 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include <config.h>
 #include <utils.h>
+#include <calcs.h>
 
-static t_point_i	texture_range(t_config *config, t_point_d *ray)
+static void	distance(t_config *config)
 {
-	int			side;
-	int			perp_wall_dist;
-	int			hit;
-	t_point_i	map;
-	t_point_d	delta_dist;
-	t_point_d	side_dist;
-	t_point_i	step;
-
-	map = (t_point_i){(int)config->player.pos.x, (int)config->player.pos.y};
-
-	if (ray->y == 0.0)
-		delta_dist.x = 0;
-	else if (ray->x == 0.0)
-		delta_dist.x = 1;
+	set_delta_distance(config);
+	set_vars(config);
+	config->draw.side = set_side_distance(config);
+	if (!config->draw.side)
+		config->draw.p_w_dist = (config->draw.map.x - config->player.pos.x
+			+ (1 - config->draw.step.x) / 2) / config->draw.ray.x;
 	else
-		delta_dist.x = fabs(1.0 / ray->x);
-	
-	if (ray->x == 0.0)
-		delta_dist.y = 0;
-	else if (ray->y == 0.0)
-		delta_dist.y = 1;
-	else
-		delta_dist.y = fabs(1.0 / ray->y);
-
-	if (ray->x < 0)
-	{
-		step.x = -1;
-		side_dist.x = (config->player.pos.x - map.x) * delta_dist.x;
-	}
-	else
-	{
-		step.x = 1;
-		side_dist.x = (-config->player.pos.x + 1.0 + map.x) * delta_dist.x;
-	}
-	
-	if (ray->y < 0)
-	{
-		step.y = -1;
-		side_dist.y = (config->player.pos.y - map.y) * delta_dist.y;
-	}
-	else
-	{
-		step.y = 1;
-		side_dist.y = (-config->player.pos.y + 1.0 + map.y) * delta_dist.y;
-	}
-
-	/*side_dist = (t_point_d){delta_dist.x * ((1 - 2 * (ray->x < 0)) * (map.x
-		- (int)config->player.pos.x) + (ray->x > 0)),
-		delta_dist.y * ((1 - 2 * (ray->y < 0)) * (map.y
-		- (int)config->player.pos.y) + (ray->y > 0))};
-	step = (t_point_i){1 - 2 * (ray->x < 0), 1 - 2 * (ray->y < 0)};*/
-	hit = 0;
-	while (!hit)
-	{
-		if (side_dist.x < side_dist.y)
-		{
-			side_dist.x += delta_dist.x;
-			map.x += step.x;
-			side = 0;
-		}
-		else
-		{
-			side_dist.y += delta_dist.y;
-			map.y += step.y;
-			side = 1;
-		}
-		hit = (config->map.rows[config->map.row_count - map.y - 1].cols[map.x] != 0.0);
-	}
-	if (!side)
-		perp_wall_dist = (map.x - config->player.pos.x + (1 - step.x) / 2) / ray->x;
-	else
-		perp_wall_dist = (map.y - config->player.pos.y + (1 - step.y) / 2) / ray->y;
-	
-	//Calculate height of line to draw on screen
-	int lineHeight = (int)(config->handle.window.size.y / perp_wall_dist);
-
-	//calculate lowest and highest pixel to fill in current stripe
-	int drawStart = -lineHeight / 2 + config->handle.window.size.y / 2;
-	if(drawStart < 0) drawStart = 0;
-	int drawEnd = lineHeight / 2 + config->handle.window.size.y / 2;
-	if(drawEnd >= config->handle.window.size.y) drawEnd = config->handle.window.size.y - 1;
-	
-	return ((t_point_i){drawStart, drawEnd});
+		config->draw.p_w_dist = (config->draw.map.y - config->player.pos.y
+			+ (1 - config->draw.step.y) / 2) / config->draw.ray.y;
+	config->draw.line_h = (int)(config->handle.window.size.y /
+		(config->draw.p_w_dist * (4.0 * config->handle.window.size.y)
+		/ (3.0 * config->handle.window.size.x)));
+	config->draw.range.x = (config->handle.window.size.y
+		- config->draw.line_h) / 2;
+	config->draw.range.x *= (config->draw.range.x >= 0);
+	config->draw.range.y = (config->handle.window.size.y
+		+ config->draw.line_h) / 2;
+	if (config->draw.range.y >= config->handle.window.size.y)
+		config->draw.range.y = config->handle.window.size.y - 1;
 }
 
-static void	fill(t_config *config, int pos, t_point_i p, t_trgb trgb)
+t_image	*get_texture(t_config *config)
 {
-	int	i;
-
-	i = p.x;
-	while (i < p.y)
+	if (config->draw.side)
 	{
-		mlx_pixel_put_local(config, pos, i, trgb);
-		++i;
+		if (config->draw.step.y > 0)
+			return (&config->no);
+		if (config->draw.step.y < 0)
+			return (&config->so);
 	}
+	else
+	{
+		if (config->draw.step.x > 0)
+			return (&config->we);
+		if (config->draw.step.x < 0)
+			return (&config->ea);
+	}
+	return (&config->screen);
 }
 
-static void	fill_sky_floor(t_config *config, int j)
+static void	fill(t_config *config, int x)
 {
-	int	half_height;
-	int	half_width;
+	int		j;
 
-	half_height = config->screen.height / 2;
-	half_width = config->handle.window.size.x / 2;
-	fill(config, half_width + j, (t_point_i){0, half_height}, config->c);
-	fill(config, half_width - j, (t_point_i){0, half_height}, config->c);
-	fill(config, half_width + j,
-		(t_point_i){half_height, config->screen.height}, config->f);
-	fill(config, half_width - j,
-		(t_point_i){half_height, config->screen.height}, config->f);
+	j = 0;
+	while (j < config->draw.range.x)
+		mlx_pixel_put_local(config, x, j++, t_trgb_to_int(config->c));
+	while (j < config->draw.range.y)
+	{
+		config->draw.tex_pos += ((double)IMG_HEIGHT / config->draw.line_h);
+		mlx_pixel_put_local(config, x, j++,
+			((int *)get_texture(config)->data)[IMG_WIDTH
+				* ((int)config->draw.tex_pos & (IMG_HEIGHT - 1))
+				+ config->draw.t_pos]);
+	}
+	while (j < config->handle.window.size.y)
+		mlx_pixel_put_local(config, x, j++, t_trgb_to_int(config->f));
 }
 
 void	main_screen(t_config *config)
 {
-	t_point_d	ray;
-	t_point_i	wall;
 	double		k;
 	int			j;
-	int			half_height;
-	int			half_width;
 
 	j = 0;
-	half_width = config->handle.window.size.x / 2;
-	half_height = config->screen.height / 2;
-	k = 2 * hypot(config->plane.x, config->plane.y)
-		/ config->handle.window.size.x - 1;
-	while (j < half_width)
+	while (j < config->handle.window.size.x)
 	{
-		fill_sky_floor(config, j);
-
-		ray = (t_point_d){config->player.dir.x + k * j * config->plane.x,
-			config->player.dir.y + k * j * config->plane.y};
-		wall = texture_range(config, &ray);
-		/*
-		// fill(config, half_width + j, wall, w);
-		ray = (t_point_d){config->player.dir.x - k * j * config->plane.x,
-			config->player.dir.y - k * j * config->plane.y};
-		wall = texture_range(config, &ray);*/
-		// fill(config, config->handle.window.size.x / 2 - j, wall, w);
+		k = 2 * j / (double)config->handle.window.size.x - 1;
+		config->draw.ray = (t_point_d){config->player.dir.x
+			+ k * config->draw.plane.x,
+			config->player.dir.y + k * config->draw.plane.y};
+		distance(config);
+		set_wall_dist(config);
+		fill(config, j);
 		++j;
 	}
 }

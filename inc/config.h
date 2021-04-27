@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/25 10:50:31 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/27 10:47:23 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,11 +130,28 @@ typedef struct s_player
 	double		speed;
 }				t_player;
 
+typedef struct s_draw
+{
+	t_point_i	map;
+	t_point_i	step;
+	t_point_d	plane;
+	t_point_d	ray;
+	t_point_d	delta_dist;
+	t_point_d	side_dist;
+	t_point_i	range;
+	int			side;
+	int			line_h;
+	int			p_w_dist;
+	int			t_pos;
+	double		tex_pos;
+	double		wall_dist;
+}				t_draw;
+
 typedef struct s_config
 {
 	char		*config_filename;
 	t_player	player;
-	t_point_d	plane;
+	t_draw		draw;
 	t_image		no;
 	t_image		so;
 	t_image		we;

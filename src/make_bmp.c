@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/25 09:20:38 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/27 10:56:59 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,17 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
+static void	itoc(char *buf, int num)
+{
+	if (buf)
+	{
+		buf[3] = (num >> 24) & 0xFF;
+		buf[2] = (num >> 16) & 0xFF;
+		buf[1] = (num >> 8) & 0xFF;
+		buf[0] = num & 0xFF;
+	}
+}
 
 static int	put_header(t_config *config, int fd)
 {
