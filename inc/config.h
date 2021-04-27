@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/27 10:47:23 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/27 17:47:20 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ typedef struct s_draw
 	t_point_i	range;
 	int			side;
 	int			line_h;
-	int			p_w_dist;
+	double		p_w_dist;
 	int			t_pos;
 	double		tex_pos;
 	double		wall_dist;
