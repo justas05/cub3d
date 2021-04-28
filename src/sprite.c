@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 00:02:35 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 17:39:50 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 19:16:12 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,16 @@ void	put_sprites(t_config *config, t_sprite *s)
 	s_order = s->from.x - 1;
 	while (++s_order < s->to.x)
 	{
-		tex.x = (int)(256 * (s_order - (-s->width / 2 + s->pos_x)) * 64 /
-				s->width) / 256;
-		if ((s->f.y > 0) && (s_order > 0) && (s_order < config->handle.window.size.x)
-				&& (s->f.y < config->draw.wall_dist[s_order]))
+		tex.x = (int)(256 * ((s_order - (-s->width / 2 + s->pos_x))) * 64 / s->width) / 256;
+		if (s->f.y > 0 && s_order > 0 && s_order < config->handle.window.size.x
+				&& s->f.y < config->draw.wall_dist[s_order])
 		{
 			j = s->from.y - 1;
 			while (++j < s->to.y)
 			{
-				d = j * 256 - config->handle.window.size.y * 128 + s->height * 128;
-				tex.y = ((d * 64) / s->height) / 256;
-				clr = ((int *)config->s.data)[64 * tex.y + tex.x];
+				d = (j - config->handle.window.size.y / 2 + s->height / 2) * 256;
+				tex.y = (d * 64 / s->height) / 256;
+				clr = ((int *)config->s.data)[(int)(64 * tex.y + tex.x)];
 				if ((clr & 0x00FFFFFF) != 0)
 					mlx_pixel_put_local(config, s_order, j, clr);
 			}

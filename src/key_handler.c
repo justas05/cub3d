@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/26 23:38:51 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 18:48:28 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	sideway_handler(t_config *config, int arg)
 		config->player.pos.y + k * config->draw.plane.y};
 	if (config->map.rows[(int)(config->map.row_count - 1 - pos.y)]
 		.cols[(int)pos.x] != 1 && config->map.rows[(int)(config->map.row_count
-		- 1 - pos.y)].cols[(int)pos.x] != 2)
+		- pos.y)].cols[(int)pos.x] != 2)
 		config->player.pos = pos;
 	return (0);
 }
