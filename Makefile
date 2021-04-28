@@ -8,7 +8,7 @@ SRC_DIR=src
 
 SRCS=$(shell find ${SRC_DIR} -type f -name "*.c")
 OBJS=${patsubst ${SRC_DIR}/%,${OBJ_DIR}/%,${SRCS:.c=.o}}
-DIRS=${dir ${OBJS}}
+DIRS=${BIN_DIR} ${OBJ_DIR} ${dir ${OBJS}}
 
 CFLAGS=-Werror
 ifdef DEBUG
