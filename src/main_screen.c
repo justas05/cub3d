@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 20:59:43 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 17:17:01 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 22:04:39 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,13 @@ static void	draw_sprites(t_config *config)
 
 	walker = config->draw.sprites;
 	if (!walker)
-		return;
+		return ;
 	while (walker)
 	{
 		walker->distance = ((config->player.pos.x - walker->pos.x)
-			* (config->player.pos.x - walker->pos.x)
-			+ (config->player.pos.y - walker->pos.y)
-			* (config->player.pos.y - walker->pos.y));
+				* (config->player.pos.x - walker->pos.x)
+				+ (config->player.pos.y - walker->pos.y)
+				* (config->player.pos.y - walker->pos.y));
 		walker = walker->next;
 	}
 	sort_sprites(config);

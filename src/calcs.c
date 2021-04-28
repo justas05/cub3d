@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:49:43 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 19:30:33 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 22:01:29 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 void	set_delta_distance(t_config *config)
 {
-	if (config->draw.ray.y == 0.0)
+	if (config->draw.ray.y == 0.0 || config->draw.ray.y == -0.0)
 		config->draw.delta_dist.x = 0;
-	else if (config->draw.ray.x == 0.0)
+	else if (config->draw.ray.x == 0.0 || config->draw.ray.x == -0.0)
 		config->draw.delta_dist.x = 1;
 	else
 		config->draw.delta_dist.x = fabs(1.0 / config->draw.ray.x);
-	if (config->draw.ray.x == 0.0)
+	if (config->draw.ray.x == 0.0 || config->draw.ray.x == -0.0)
 		config->draw.delta_dist.y = 0;
-	else if (config->draw.ray.y == 0.0)
+	else if (config->draw.ray.y == 0.0 || config->draw.ray.y == -0.0)
 		config->draw.delta_dist.y = 1;
 	else
 		config->draw.delta_dist.y = fabs(1.0 / config->draw.ray.y);

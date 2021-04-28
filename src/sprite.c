@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 00:02:35 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 19:32:26 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 22:08:33 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <config.h>
 #include <utils.h>
 #include <stdlib.h>
+#include <math.h>
 
 int	add_sprite(t_config *config, ssize_t i, ssize_t j)
 {
@@ -57,7 +58,7 @@ void	sprite_calc(t_config *config, t_point_d d, t_sprite *s)
 	inv_det = 1.0 / (config->draw.plane.x * p.y - p.x * config->draw.plane.y);
 	s->f.x = inv_det * (p.y * d.x - p.x * d.y);
 	s->f.y = inv_det * (-config->draw.plane.y * d.x
-		+ config->draw.plane.x * d.y);
+			+ config->draw.plane.x * d.y);
 	s->pos_x = (int)(w.x / 2 * (1 + s->f.x / s->f.y));
 	s->height = abs((int)(w.y / (s->f.y * (4.0 * w.y / (3.0 * w.x)))));
 	s->from.y = (-s->height / 2 + w.y / 2);
@@ -77,22 +78,22 @@ void	put_sprites(t_config *config, t_sprite *s)
 {
 	int			s_order;
 	t_point_i	tex;
-	int			d;
 	int			clr;
 	int			j;
 
 	s_order = s->from.x - 1;
 	while (++s_order < s->to.x)
 	{
-		tex.x = (int)(256 * ((s_order - (-s->width / 2 + s->pos_x))) * 64 / s->width) / 256;
+		tex.x = (int)(256 * ((s_order - (-s->width / 2 + s->pos_x)))
+				* 64 / s->width) / 256;
 		if (s->f.y > 0 && s_order > 0 && s_order < config->handle.window.size.x
-				&& s->f.y < config->draw.wall_dist[s_order])
+			&& min(s->f.x, s->f.y) < config->draw.wall_dist[s_order])
 		{
 			j = s->from.y - 1;
 			while (++j < s->to.y)
 			{
-				d = j * 256 - config->handle.window.size.y * 128 + s->height * 128;
-				tex.y = (d * 64 / s->height) / 256;
+				tex.y = ((j * 256 - config->handle.window.size.y * 128
+							+ s->height * 128) * 64 / s->height) / 256;
 				clr = ((int *)config->s.data)[(int)(64 * tex.y + tex.x)];
 				if ((clr & 0x00FFFFFF) != 0)
 					mlx_pixel_put_local(config, s_order, j, clr);

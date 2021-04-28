@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 17:23:52 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 22:03:55 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	check_map(t_config *config)
 				set_player(config, i, j, (config->map.rows + i)->cols[j]);
 			else if ((config->map.rows + i)->cols[j] == N_SPRITE
 				&& add_sprite(config, i, j))
-					return (E_MAP);
+				return (E_MAP);
 			++j;
 		}
 		++i;

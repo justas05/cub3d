@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 12:18:12 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 13:42:57 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 22:06:37 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,11 @@ void	swap(void *p1, void *p2, size_t size)
 		swap_byte(p1 + i, p2 + i);
 		++i;
 	}
+}
+
+double	min(double a, double b)
+{
+	if (a < b)
+		return (a);
+	return (b);
 }
