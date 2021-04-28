@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 10:12:14 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 13:31:59 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	init(t_config *config)
 		return (print_error(E_CFG));
 	config->screen.addr = mlx_new_image(config->handle.mlx.ptr,
 			config->screen.width, config->screen.height);
-	if (!config->screen.addr)
+	config->draw.wall_dist = malloc(config->screen.width * sizeof(double));
+	if (!config->screen.addr || !config->draw.wall_dist)
 		return (print_error(E_IMAGE));
 	config->screen.data = mlx_get_data_addr(config->screen.addr,
 			&config->screen.bits_per_pixel, &config->screen.size_line,

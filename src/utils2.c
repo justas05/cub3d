@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 12:17:50 by hbooke           ###   ########.fr       */
+/*   Created: 2021/04/28 12:18:12 by hbooke            #+#    #+#             */
+/*   Updated: 2021/04/28 13:42:57 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include <stddef.h>
 
-# include <config.h>
+static void	swap_byte(unsigned char *c1, unsigned char *c2)
+{
+	unsigned char	t;
 
-char	*skip_spaces(char *line);
-char	*atoi_s(char *line, int *num);
-int		is_valid_rgb(t_trgb *rgb);
-int		t_trgb_to_int(t_trgb num);
-void	mlx_pixel_put_local(t_config *config, int w, int h, int color);
-void	swap(void *p1, void *p2, size_t size);
+	t = *c1;
+	*c1 = *c2;
+	*c2 = t;
+}
 
-#endif
+void	swap(void *p1, void *p2, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < size)
+	{
+		swap_byte(p1 + i, p2 + i);
+		++i;
+	}
+}

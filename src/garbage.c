@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/08 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 10:52:08 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 13:32:39 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	free_config(t_config *config)
 	destroy_textures(config);
 	clear_sprites(config);
 	free_map(config);
+	if (config->draw.wall_dist)
+		free(config->draw.wall_dist);
 	if (config->handle.mlx.ptr)
 	{
 		if (config->handle.window.ptr)

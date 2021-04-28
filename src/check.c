@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 10:47:50 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 17:23:52 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_args(int argc, char **argv, t_config *config)
 		|| (argc == 3 && ft_strcmp("--save", argv[2]))
 		|| (argc == 2 && ((len = ft_strlen(argv[1])) < 4
 				|| ft_strcmp(S_EXT, argv[1] + len - 4))))
-		return (print_error(E_ARGS));
+		return (print_error(E_ARGS) - 1);
 	config->save = (argc == 3);
 	config->config_filename = ft_strdup(argv[1]);
 	return (0);

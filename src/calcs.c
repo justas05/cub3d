@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 16:49:43 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/27 19:06:25 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 13:29:12 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,16 @@ int	set_side_distance(t_config *config)
 	return (side);
 }
 
-void	set_wall_dist(t_config *config)
+void	set_wall_dist(t_config *config, int i)
 {
 	if (!config->draw.side)
-		config->draw.wall_dist = config->player.pos.y
+		config->draw.wall_dist[i] = config->player.pos.y
 			+ config->draw.p_w_dist * config->draw.ray.y;
 	else
-		config->draw.wall_dist = config->player.pos.x
+		config->draw.wall_dist[i] = config->player.pos.x
 			+ config->draw.p_w_dist * config->draw.ray.x;
-	config->draw.wall_dist -= (int)config->draw.wall_dist;
-	config->draw.t_pos = (int)(config->draw.wall_dist * IMG_HEIGHT);
+	config->draw.wall_dist[i] -= (int)config->draw.wall_dist[i];
+	config->draw.t_pos = (int)(config->draw.wall_dist[i] * IMG_HEIGHT);
 	if ((!config->draw.side && (config->draw.ray.x > 0))
 		|| (config->draw.side && config->draw.ray.y < 0))
 		config->draw.t_pos = IMG_HEIGHT - config->draw.t_pos - 1;

@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 20:59:43 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 09:23:24 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 17:17:01 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,32 @@ static void	fill(t_config *config, int x)
 		mlx_pixel_put_local(config, x, j++, t_trgb_to_int(config->f));
 }
 
+static void	draw_sprites(t_config *config)
+{
+	t_sprite	*walker;
+
+	walker = config->draw.sprites;
+	if (!walker)
+		return;
+	while (walker)
+	{
+		walker->distance = ((config->player.pos.x - walker->pos.x)
+			* (config->player.pos.x - walker->pos.x)
+			+ (config->player.pos.y - walker->pos.y)
+			* (config->player.pos.y - walker->pos.y));
+		walker = walker->next;
+	}
+	sort_sprites(config);
+	walker = config->draw.sprites;
+	while (walker)
+	{
+		sprite_calc(config, (t_point_d){walker->pos.x - config->player.pos.x,
+			walker->pos.y - config->player.pos.y}, walker);
+		put_sprites(config, walker);
+		walker = walker->next;
+	}
+}
+
 void	main_screen(t_config *config)
 {
 	double		k;
@@ -89,7 +115,7 @@ void	main_screen(t_config *config)
 			+ k * config->draw.plane.x,
 			config->player.dir.y + k * config->draw.plane.y};
 		distance(config);
-		set_wall_dist(config);
+		set_wall_dist(config, j);
 		fill(config, j);
 		++j;
 	}

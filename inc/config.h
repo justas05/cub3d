@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 10:45:06 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 14:09:49 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,14 @@ typedef struct s_player
 
 typedef struct s_sprite
 {
-	t_point_i		pos;
+	t_point_d		pos;
+	t_point_d		f;
+	t_point_d		from;
+	t_point_d		to;
+	int				pos_x;
+	int				height;
+	double			distance;
+	double			width;
 	struct s_sprite	*next;
 }					t_sprite;
 
@@ -151,7 +158,7 @@ typedef struct s_draw
 	double		p_w_dist;
 	int			t_pos;
 	double		tex_pos;
-	double		wall_dist;
+	double		*wall_dist;
 }				t_draw;
 
 typedef struct s_config
@@ -166,7 +173,7 @@ typedef struct s_config
 	t_image		s;
 	t_image		screen;
 	t_trgb		f;
-	t_trgb		c; 
+	t_trgb		c;
 	t_map		map;
 	t_handle	handle;
 	char		save;
@@ -198,7 +205,9 @@ void	main_screen(t_config *config);
 int		make_image(t_config *config);
 int		make_bmp(t_config *config);
 int		add_sprite(t_config *config, ssize_t i, ssize_t j);
-void	draw_sprites(t_config *config);
 void	clear_sprites(t_config *config);
+void	sprite_calc(t_config *config, t_point_d p, t_sprite *s);
+void	sort_sprites(t_config *config);
+void	put_sprites(t_config *config, t_sprite *sprite);
 
 #endif

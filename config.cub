@@ -1,11 +1,13 @@
-R 1800 4100
-NO /home/makar/projects/school42/cub3d/rcs/textures/grey.xpm
+R 1000 700
+
+NO /home/makar/projects/school42/cub3d/rcs/textures/anonymous1.xpm
 SO /home/makar/projects/school42/cub3d/rcs/textures/blue.xpm
 WE /home/makar/projects/school42/cub3d/rcs/textures/brick.xpm
 EA /home/makar/projects/school42/cub3d/rcs/textures/wood.xpm
-S /home/makar/projects/school42/cub3d/rcs/textures/barrel.xpm
-F 220,100,0
-C 225,30,0
+S /home/makar/projects/school42/cub3d/rcs/textures/chalice.xpm
+
+F 79,79,79
+C 83,138,207
 
 111111
 120021
