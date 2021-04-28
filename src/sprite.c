@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/28 00:02:35 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/28 19:16:12 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 19:32:26 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	put_sprites(t_config *config, t_sprite *s)
 			j = s->from.y - 1;
 			while (++j < s->to.y)
 			{
-				d = (j - config->handle.window.size.y / 2 + s->height / 2) * 256;
+				d = j * 256 - config->handle.window.size.y * 128 + s->height * 128;
 				tex.y = (d * 64 / s->height) / 256;
 				clr = ((int *)config->s.data)[(int)(64 * tex.y + tex.x)];
 				if ((clr & 0x00FFFFFF) != 0)
