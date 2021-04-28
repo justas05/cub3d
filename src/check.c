@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/26 23:39:06 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 10:47:50 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ int	check_args(int argc, char **argv, t_config *config)
 		|| (argc == 3 && ft_strcmp("--save", argv[2]))
 		|| (argc == 2 && ((len = ft_strlen(argv[1])) < 4
 				|| ft_strcmp(S_EXT, argv[1] + len - 4))))
-	{
-		print_error(E_ARGS);
-		return (-1);
-	}
+		return (print_error(E_ARGS));
 	config->save = (argc == 3);
 	config->config_filename = ft_strdup(argv[1]);
 	return (0);
@@ -86,6 +83,9 @@ int	check_map(t_config *config)
 				return (E_MAP);
 			else if (is_player((config->map.rows + i)->cols[j]))
 				set_player(config, i, j, (config->map.rows + i)->cols[j]);
+			else if ((config->map.rows + i)->cols[j] == N_SPRITE
+				&& add_sprite(config, i, j))
+					return (E_MAP);
 			++j;
 		}
 		++i;

@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/20 11:56:01 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 08:28:10 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ enum		e_errors
 	E_UNKNOWN
 };
 
-void		print_error(int err);
+int	print_error(int err);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/27 10:56:59 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 08:25:18 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	make_bmp(t_config *config)
 			S_IRWXU | S_IRWXG | S_IRWXO);
 	if (fd < 0)
 		return (E_OPEN_FILE);
-	make_image(config);
+	main_screen(config);
 	if (put_header(config, fd) || put_image_to_file(config, fd))
 		err = E_FILE_WRITE;
 	close(fd);

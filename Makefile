@@ -1,4 +1,4 @@
-NAME=cub3d
+NAME=cub3D
 
 BIN_DIR=bin
 INC_DIR=inc

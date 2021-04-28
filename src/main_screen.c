@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 20:59:43 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/27 17:40:13 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 09:23:24 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ static void	distance(t_config *config)
 	config->draw.side = set_side_distance(config);
 	if (!config->draw.side)
 		config->draw.p_w_dist = (config->draw.map.x - config->player.pos.x
-			+ (1 - config->draw.step.x) / 2) / config->draw.ray.x;
+				+ (1 - config->draw.step.x) / 2) / config->draw.ray.x;
 	else
 		config->draw.p_w_dist = (config->draw.map.y - config->player.pos.y
-			+ (1 - config->draw.step.y) / 2) / config->draw.ray.y;
-	config->draw.line_h = (int)(config->handle.window.size.y /
-		(config->draw.p_w_dist * (4.0 * config->handle.window.size.y)
-		/ (3.0 * config->handle.window.size.x)));
+				+ (1 - config->draw.step.y) / 2) / config->draw.ray.y;
+	config->draw.line_h = (int)(config->handle.window.size.y
+			/ (config->draw.p_w_dist * (4.0 * config->handle.window.size.y)
+				/ (3.0 * config->handle.window.size.x)));
 	config->draw.range.x = (config->handle.window.size.y
-		- config->draw.line_h) / 2;
+			- config->draw.line_h) / 2;
 	config->draw.range.x *= (config->draw.range.x >= 0);
 	config->draw.range.y = (config->handle.window.size.y
-		+ config->draw.line_h) / 2;
+			+ config->draw.line_h) / 2;
 	if (config->draw.range.y >= config->handle.window.size.y)
 		config->draw.range.y = config->handle.window.size.y - 1;
 }
@@ -69,8 +69,8 @@ static void	fill(t_config *config, int x)
 		config->draw.tex_pos += ((double)IMG_HEIGHT / config->draw.line_h);
 		mlx_pixel_put_local(config, x, j++,
 			((int *)get_texture(config)->data)[IMG_WIDTH
-				* ((int)config->draw.tex_pos & (IMG_HEIGHT - 1))
-				+ config->draw.t_pos]);
+			* ((int)config->draw.tex_pos & (IMG_HEIGHT - 1))
+			+ config->draw.t_pos]);
 	}
 	while (j < config->handle.window.size.y)
 		mlx_pixel_put_local(config, x, j++, t_trgb_to_int(config->f));
@@ -93,4 +93,5 @@ void	main_screen(t_config *config)
 		fill(config, j);
 		++j;
 	}
+	draw_sprites(config);
 }

@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/27 17:47:20 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 10:45:06 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,12 @@ typedef struct s_player
 	double		speed;
 }				t_player;
 
+typedef struct s_sprite
+{
+	t_point_i		pos;
+	struct s_sprite	*next;
+}					t_sprite;
+
 typedef struct s_draw
 {
 	t_point_i	map;
@@ -139,6 +145,7 @@ typedef struct s_draw
 	t_point_d	delta_dist;
 	t_point_d	side_dist;
 	t_point_i	range;
+	t_sprite	*sprites;
 	int			side;
 	int			line_h;
 	double		p_w_dist;
@@ -159,7 +166,7 @@ typedef struct s_config
 	t_image		s;
 	t_image		screen;
 	t_trgb		f;
-	t_trgb		c;
+	t_trgb		c; 
 	t_map		map;
 	t_handle	handle;
 	char		save;
@@ -190,5 +197,8 @@ int		game(t_config *config);
 void	main_screen(t_config *config);
 int		make_image(t_config *config);
 int		make_bmp(t_config *config);
+int		add_sprite(t_config *config, ssize_t i, ssize_t j);
+void	draw_sprites(t_config *config);
+void	clear_sprites(t_config *config);
 
 #endif

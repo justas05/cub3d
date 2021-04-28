@@ -6,7 +6,7 @@
 /*   By: hbooke <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 21:08:28 by hbooke            #+#    #+#             */
-/*   Updated: 2021/04/24 19:54:08 by hbooke           ###   ########.fr       */
+/*   Updated: 2021/04/28 10:09:26 by hbooke           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ int	parse_config(t_config *config)
 
 	cratch(config, &err, &ret, &fd);
 	if (!config || fd < 0)
-	{
-		print_error(E_FILE);
-		return (-1);
-	}
+		return (print_error(E_FILE));
 	while (ret > 0 && !err)
 	{
 		line = NULL;
@@ -95,4 +92,6 @@ void	init_config(t_config *config)
 	ft_bzero(config, sizeof(t_config));
 	config->player.speed = 0.1;
 	config->angle = 5 * M_PI / 180;
+	config->c = (t_trgb){0, -1, -1, -1};
+	config->f = (t_trgb){0, -1, -1, -1};
 }
